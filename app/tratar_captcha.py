@@ -3,6 +3,8 @@ import os
 import glob
 from PIL import Image
 
+# 1 - Tratando os captcha para facilitar o treinamento da IA
+
 def tratar_imagem(pasta_origem, pasta_destino='captcha_tratado'):
   arquivos = glob.glob(f"{pasta_origem}/*")
 

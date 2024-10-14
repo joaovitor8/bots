@@ -4,8 +4,9 @@ import pickle
 from imutils import paths
 from keras.api.models import load_model
 from helpers import resize_to_fit
-from tratar_captcha1 import tratar_imagem
+from tratar_captcha import tratar_imagem
 
+# 4 - Colocando o modelo / IA para resolver os captcha
 
 def quebrar_captcha():
   with open("rotulos_modelo.abc", "+rb") as arquivo_tradutor:

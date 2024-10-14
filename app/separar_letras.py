@@ -2,6 +2,8 @@ import cv2
 import os
 import glob
 
+# 2 - Separando as letras e numeros para treinamento indivdiual
+
 arquivos = glob.glob('captcha_tratado/*')
 
 for arquivo in arquivos:

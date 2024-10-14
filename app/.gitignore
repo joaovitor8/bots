@@ -1,6 +1,11 @@
 # Base de Dados
 bd_captcha
 bd_letras-numeros
+captcha_tratado
+identificando_letras-numeros
+letras-numeros
+resolver
+testes_metodo
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

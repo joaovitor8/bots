@@ -10,6 +10,8 @@ from keras.api.layers import Conv2D, MaxPooling2D
 from keras.api.layers import Flatten, Dense
 from helpers import resize_to_fit
 
+# 3 - Treinando o modelo / IA
+
 dados = []
 rotulos = []
 

@@ -1,6 +1,8 @@
 import cv2
 from PIL import Image
 
+# 0 - Testando metodos para ver qual é o melhor para o tratamento das imagens
+
 metodos = [
   cv2.THRESH_BINARY,
   cv2.THRESH_BINARY_INV,

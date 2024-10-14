@@ -25,8 +25,8 @@ for arquivo in arquivos:
     if area > 115:
       regiao_letras.append((x, y, largura, altura))
   
-  if len(regiao_letras) != 5:
-    continue
+  # if len(regiao_letras) != 5:
+  #   continue
   
   # Desenhar os contornos e separar as letras em arquivos individuais
   imagem_final = cv2.merge([imagem] * 3)

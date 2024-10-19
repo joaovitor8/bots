@@ -41,8 +41,8 @@ for arquivo in arquivos:
 
     i += 1
     nome_arquivo = os.path.basename(arquivo).replace('.png', f"Letra{i}.png")
-    cv2.imwrite(f'letras/{nome_arquivo}', imagem_letra)
+    cv2.imwrite(f'letras-numeros/{nome_arquivo}', imagem_letra)
     cv2.rectangle(imagem_final, ponto_inicial, ponto_final, (0, 255, 0), 1)
   
   nome_arquivo_original = os.path.basename(arquivo)
-  cv2.imwrite(f'identificando_letras/{nome_arquivo_original}', imagem_final)
+  cv2.imwrite(f'identificando_letras-numeros/{nome_arquivo_original}', imagem_final)

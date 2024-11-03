@@ -95,3 +95,6 @@ if __name__ == "__main__":
     schedule.run_pending()
     time.sleep(60)  # Verifica a cada minuto se é hora de executar a tarefa
 
+
+# if __name__ == "__main__":
+#   main()

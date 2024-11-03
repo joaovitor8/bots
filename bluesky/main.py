@@ -86,11 +86,11 @@ def main():
 
 
 # Agendando a execução diária às 15:00
-schedule.every().day.at("15:00").do(main)
+schedule.every().day.at("15:30").do(main)
 
 # Loop para manter o script em execução e verificar o agendamento
 if __name__ == "__main__":
-  print("Script agendado para rodar diariamente às 15:00.")
+  print("Script agendado para rodar diariamente às 15:30.")
   while True:
     schedule.run_pending()
     time.sleep(60)  # Verifica a cada minuto se é hora de executar a tarefa

@@ -1,11 +1,14 @@
 from atproto import Client
 import requests
 import os
+import schedule
+import time
 
 # Configurações de ambiente
 BLUESKY_USERNAME = os.environ['BLUESKY_USERNAME']
 BLUESKY_PASSWORD = os.environ['BLUESKY_PASSWORD']
 API_NASA_KEY = os.environ['API_NASA_KEY']
+
 
 def fetch_nasa_media_data(api_key):
   #"""Obtém os dados da mídia do dia da API da NASA."""
@@ -20,6 +23,7 @@ def fetch_nasa_media_data(api_key):
   else:
     print("Falha ao obter dados da API da NASA.")
     return None
+
 
 def download_media(url):
   #"""Baixa a mídia (imagem ou vídeo) da URL fornecida e salva localmente."""
@@ -37,6 +41,7 @@ def download_media(url):
     print(f"Falha ao baixar a mídia. Código de status:", response.status_code)
     return None, None
 
+
 def upload_to_bluesky(username, password, title, date, media_path, media_type):
   #"""Faz o upload da mídia para o Bluesky com título e data."""
   client = Client()
@@ -52,6 +57,7 @@ def upload_to_bluesky(username, password, title, date, media_path, media_type):
 
   print(f"Mídia ({media_type}) enviada com sucesso para o Bluesky.")
 
+
 def delete_local_file(file_path):
   #"""Remove o arquivo local se ele existir."""
   if os.path.exists(file_path):
@@ -59,6 +65,7 @@ def delete_local_file(file_path):
     print("Mídia deletada com sucesso!")
   else:
     print("Arquivo não encontrado.")
+
 
 def main():
   # Etapa 1: Obter dados da mídia
@@ -77,6 +84,14 @@ def main():
   # Etapa 4: Deletar arquivo local
   delete_local_file(media_path)
 
+
+# Agendando a execução diária às 15:00
+schedule.every().day.at("15:00").do(main)
+
+# Loop para manter o script em execução e verificar o agendamento
 if __name__ == "__main__":
-  main()
+  print("Script agendado para rodar diariamente às 15:00.")
+  while True:
+    schedule.run_pending()
+    time.sleep(60)  # Verifica a cada minuto se é hora de executar a tarefa
 

@@ -51,9 +51,9 @@ def upload_to_bluesky(username, password, title, date, media_path, media_type):
     media_data = media_file.read()
 
   if media_type == 'image':
-    client.send_image(text=f'{title} - {date}', image=media_data, image_alt=title)
+    client.send_image(text=f'Imagem Astronômica do Dia: {title} - {date}', image=media_data, image_alt=title)
   elif media_type == 'video':
-    client.send_video(text=f'{title} - {date}', video=media_data, video_alt=title)
+    client.send_video(text=f'Imagem Astronômica do Dia: {title} - {date}', video=media_data, video_alt=title)
 
   print(f"Mídia ({media_type}) enviada com sucesso para o Bluesky.")
 
@@ -85,16 +85,16 @@ def main():
   delete_local_file(media_path)
 
 
-# Agendando a execução diária às 15:00
-schedule.every().day.at("15:30").do(main)
+# # Agendando a execução diária às 15:00
+# schedule.every().day.at("15:30").do(main)
 
-# Loop para manter o script em execução e verificar o agendamento
-if __name__ == "__main__":
-  print("Script agendado para rodar diariamente às 15:30.")
-  while True:
-    schedule.run_pending()
-    time.sleep(60)  # Verifica a cada minuto se é hora de executar a tarefa
-
-
+# # Loop para manter o script em execução e verificar o agendamento
 # if __name__ == "__main__":
-#   main()
+#   print("Script agendado para rodar diariamente às 15:30.")
+#   while True:
+#     schedule.run_pending()
+#     time.sleep(60)  # Verifica a cada minuto se é hora de executar a tarefa
+
+
+if __name__ == "__main__":
+  main()

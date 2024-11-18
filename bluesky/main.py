@@ -1,6 +1,7 @@
 from atproto import Client
 import requests
 import os
+from deep_translator import GoogleTranslator
 import schedule
 import time
 
@@ -50,12 +51,17 @@ def upload_to_bluesky(username, password, title, date, media_path, media_type):
   with open(media_path, 'rb') as media_file:
     media_data = media_file.read()
 
-  if media_type == 'image':
-    client.send_image(text=f'Imagem Astronômica do Dia: {title} - {date}', image=media_data, image_alt=title)
-  elif media_type == 'video':
-    client.send_video(text=f'Imagem Astronômica do Dia: {title} - {date}', video=media_data, video_alt=title)
+  hashtag = "#astronomy  #science  #space  #universe  #cosmology  #astrophotos  #nasa"
 
-  print(f"Mídia ({media_type}) enviada com sucesso para o Bluesky.")
+  tradutor = GoogleTranslator(source="en", target="pt")
+  traducao = tradutor.translate(title)
+
+  if media_type == 'image':
+    client.send_image(text=f'Imagem Astronômica do Dia: {date}\n\n{traducao}\n\n{hashtag}', image=media_data, image_alt=traducao)
+  elif media_type == 'video':
+    client.send_video(text=f'Imagem Astronômica do Dia: {date}\n\n{traducao}\n\n{hashtag}', video=media_data, video_alt=title)
+
+  print(f"Mídia({media_type}) enviada com sucesso para o Bluesky.")
 
 
 def delete_local_file(file_path):
@@ -85,6 +91,11 @@ def main():
   delete_local_file(media_path)
 
 
+if __name__ == "__main__":
+  main()
+
+
+
 # # Agendando a execução diária às 15:00
 # schedule.every().day.at("15:30").do(main)
 
@@ -95,6 +106,3 @@ def main():
 #     schedule.run_pending()
 #     time.sleep(60)  # Verifica a cada minuto se é hora de executar a tarefa
 
-
-if __name__ == "__main__":
-  main()

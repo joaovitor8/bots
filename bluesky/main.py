@@ -17,6 +17,7 @@ def fetch_nasa_media_data(api_key):
   if response.status_code == 200:
     data = response.json()
     return {
+      'copyright': data['copyright'],
       'date': data['date'],
       'url': data['url'],
       'title': data['title']
@@ -43,7 +44,7 @@ def download_media(url):
     return None, None
 
 
-def upload_to_bluesky(username, password, title, date, media_path, media_type):
+def upload_to_bluesky(username, password, title, date, copyright, media_path, media_type):
   #"""Faz o upload da mídia para o Bluesky com título e data."""
   client = Client()
   client.login(username, password)
@@ -57,9 +58,9 @@ def upload_to_bluesky(username, password, title, date, media_path, media_type):
   traducao = tradutor.translate(title)
 
   if media_type == 'image':
-    client.send_image(text=f'Imagem Astronômica do Dia: {date}\n\n{traducao}\n\n{hashtag}', image=media_data, image_alt=traducao)
+    client.send_image(text=f'Midia Astronômica do Dia: {date}\n\nTítulo: {traducao}\n\nCrédito: {copyright.replace("\n", "")}\n\n{hashtag}', image=media_data, image_alt=traducao)
   elif media_type == 'video':
-    client.send_video(text=f'Imagem Astronômica do Dia: {date}\n\n{traducao}\n\n{hashtag}', video=media_data, video_alt=title)
+    client.send_video(text=f'Midia Astronômica do Dia: {date}\n\nTítulo: {traducao}\n\nCrédito: {copyright.replace("\n", "")}\n\n{hashtag}', video=media_data, video_alt=traducao)
 
   print(f"Mídia({media_type}) enviada com sucesso para o Bluesky.")
 
@@ -85,7 +86,7 @@ def main():
     return  # Encerra se falhar ao baixar a mídia
 
   # Etapa 3: Fazer upload para o Bluesky
-  upload_to_bluesky(BLUESKY_USERNAME, BLUESKY_PASSWORD, media_data['title'], media_data['date'], media_path, media_type)
+  upload_to_bluesky(BLUESKY_USERNAME, BLUESKY_PASSWORD, media_data['title'], media_data['date'], media_data['copyright'], media_path, media_type)
 
   # Etapa 4: Deletar arquivo local
   delete_local_file(media_path)
